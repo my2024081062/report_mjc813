@@ -1,3 +1,6 @@
+html {
+    min-width: 500px;
+}
 .inputField {
     background-color: rgba(255, 235, 205, 0.3);
 }
