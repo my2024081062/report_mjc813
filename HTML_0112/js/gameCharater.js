@@ -4,11 +4,33 @@ class gameCharater {
   #str=0; #int=0; #dex=0; #lux=0;
   #birthDate="";
 
-  constructor(name,cls,sx,hp,mp,str,int,dex,lux,birthDate){
-    this.#name = name; this.#cls = cls; this.#sx = sx;
-    this.#hp = hp; this.#mp=mp; 
-    this.#str = str; this.#int = int; this.#dex = dex; this.#lux = lux;
-    this.#birthDate = birthDate;
+  createGameCharater(){
+    this.#name = $("#name").val();
+    this.#cls = $("#cls").val();
   }
 
 }
+
+$(() => {
+  $("#insert").click(function (e) {
+    e.preventDefault();
+    nint.addGameCharater();
+    nint.print();
+    nint.clearInput();
+  });
+
+  $("#update").click(function (e) {
+    e.preventDefault();
+    nint.updateGameCharater();
+    nint.print();
+    nint.clearInput();
+  });
+
+  $("#delete").click(function (e) {
+    e.preventDefault();
+    nint.deleteGameCharater();
+    nint.print();
+    nint.clearInput();
+  });
+})
+
