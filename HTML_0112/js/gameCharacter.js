@@ -25,9 +25,26 @@ class gameCharacter {
     }
   }
 
+  checkInputValueIsError(forInsert){
+    if(forInsert === `forInsert` && this.#characters.some((character) => {
+      return character.id * 1 === $("#id").val() * 1
+    })){
+      alert(`아이디가 중복되었습니다`);
+      return true;
+    }
+    if($("#name").val()<=1 || $("#name").val()>10){
+      alert(`이름은 2글자 이상 10글자 미만으로 해주세요`);
+      return true;
+    }
+    if($(".inputNumber").val()<0 || $(".inputNumber").val()>200){
+      alert(`능력치는 0이상 200이하로 설정해주세요.`);
+      return true;
+    }
+  }
+
   insertGameCharacter() {
     //조건문 검사
-
+    if(this.checkInputValueIsError(`forInsert`)) return;
     //게임 캐릭터 생성해서 배열에 푸쉬
     let newCharacter = this.createGameCharacter(`forInsert`);
     this.#characters.push(newCharacter);
@@ -35,7 +52,7 @@ class gameCharacter {
 
   updateGameCharacter() {
     //조건문 검사
-
+    if(this.checkInputValueIsError(``)) return;
     //아이디 검색해서 일치하는 배열의 객체를 수정함
     let updateCharacter = this.createGameCharacter(`forUpdate`);
     let findIndex = this.findCharacterIndex($("#id").val());
@@ -46,7 +63,7 @@ class gameCharacter {
 
   deleteGameCharacter() {
     //조건문 검사
-
+    if(this.checkInputValueIsError(``)) return;
     //아이디 검색해서 일치하는 배열의 객체를 삭제
     let findIndex = this.findCharacterIndex($("#id").val());
     if (findIndex === -1)
