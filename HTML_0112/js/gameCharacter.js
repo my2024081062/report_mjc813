@@ -195,8 +195,31 @@ class gameCharacter {
 
   attackInt(){
     if($("#attIntTarget").val()*1 === 0 || this.findCharacterIndex($("#id").val()) === -1) return;
-    this.findCharacter($("#attIntTarget").val()).hp -= this.findCharacter($("#id").val()).int;
-    this.findCharacter($("#id").val()).mp -= this.findCharacter($("#id").val()).int;
+    let tmp = this.findCharacter($("#id").val()).mp - this.findCharacter($("#id").val()).int;
+    if(this.findCharacter($("#id").val()).mp === 0){
+      alert(`mp가 0이라 INT공격을 할 수 없습니다.`);
+      return;
+    }
+    else if(tmp<0){
+      alert(`mp가 남은 만큼 공격했습니다.`);
+      this.findCharacter($("#attIntTarget").val()).hp -= this.findCharacter($("#id").val()).mp;
+      this.findCharacter($("#id").val()).mp = 0;
+    }
+    else {
+      this.findCharacter($("#attIntTarget").val()).hp -= this.findCharacter($("#id").val()).int;
+      this.findCharacter($("#id").val()).mp -= this.findCharacter($("#id").val()).int;
+    }
+
+    if(this.findCharacter($("#attIntTarget").val()).hp<0){
+      let findIndex = this.findCharacterIndex($("#attIntTarget").val());
+      if (findIndex === -1)
+        return;
+      else {
+        this.#characters.splice(findIndex, 1);
+        character.printListHtml();
+        character.printListAttack($("#id").val());
+      }
+    }
   }
 }
 
