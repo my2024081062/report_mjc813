@@ -1,14 +1,57 @@
 class gameCharater {
-  #name=""; #cls=""; #sx="";
-  #hp=0; #mp=0;
-  #str=0; #int=0; #dex=0; #lux=0;
-  #birthDate="";
+  static id = 1;
+  #charaters = [
+    {
+      id: NaN, name: "", cls: "", sx: "",
+      hp: 0, mp: 0,
+      str: 0, int: 0, dex: 0, lux: 0,
+      birthDate: ""
+    }
+  ];
 
-  constructor(name,cls,sx,hp,mp,str,int,dex,lux,birthDate){
-    this.#name = name; this.#cls = cls; this.#sx = sx;
-    this.#hp = hp; this.#mp=mp; 
-    this.#str = str; this.#int = int; this.#dex = dex; this.#lux = lux;
-    this.#birthDate = birthDate;
+  createGameCharater(forInsert) {
+    return {
+      id: forInsert === `forInsert` ? gameCharater.id++ : {},
+      name: $("#name").val(),
+      sx: $("#sx").val(),
+      hp: $("#hp").val(),
+      mp: $("#mp").val(),
+      str: $("#str").val(),
+      int: $("#int").val(),
+      dex: $("#dex").val(),
+      lux: $("#lux").val(),
+      birthDate: $("#birthDate").val()
+    }
   }
 
 }
+
+$(() => {
+  let charater = new gameCharater();
+  nint.print();
+  $("#insert").click(function (e) {
+    e.preventDefault();
+    charater.insertGameCharater();
+    charater.print();
+    charater.clearInput();
+  });
+
+  $("#update").click(function (e) {
+    e.preventDefault();
+    charater.updateGameCharater();
+    charater.print();
+    charater.clearInput();
+  });
+
+  $("#delete").click(function (e) {
+    e.preventDefault();
+    charater.deleteGameCharater();
+    charater.print();
+    charater.clearInput();
+  });
+
+  $(document).on(`click`, ".game", function (e) {
+    nint.printItem($(e.currentTarget).children().first().text());
+  });
+})
+
