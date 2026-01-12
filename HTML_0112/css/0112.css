@@ -10,6 +10,20 @@
     grid-template-columns: 150px auto;
     /* justify-content: space-between; */
 }
+.inputItem50 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.hpNumber {
+    accent-color: blue;
+}
+.mpNumber {
+    accent-color: red;
+}
+.inputItem25 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
 .text-wrapper {
     border: 1px solid black;
     margin: 2px;
@@ -19,8 +33,9 @@
     height: 64%;
 }
 .inputNumber {
-    width: 97%;
+    width: 89%;
     height: 64%;
+    margin: 0px 2px 0px 2px;
 }
 .selectCombo {
     width: 100%;
@@ -37,6 +52,9 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     /* justify-content: center; */
+}
+.textAlignCenter {
+    text-align: center;
 }
 .btn-wrapper {
     margin: 2px;
@@ -68,9 +86,9 @@
 }
 .listTitleRow {
     display: grid;
-    grid-template-columns: 120px 120px auto;
+    grid-template-columns: auto 80px 40px 40px 40px 90px;
 }
 .listDataRow {
     display: grid;
-    grid-template-columns: 120px 120px auto;
+    grid-template-columns: auto 80px 40px 40px 40px 90px;
 }
