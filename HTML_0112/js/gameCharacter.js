@@ -100,18 +100,23 @@ class gameCharacter {
     `;
   }
 
-  printHtml() {
-    $(".listDataBlock").empty();
+  printListAttack(id){
     $("#attStrTarget").empty();
     $("#attStrTarget").append(`<option value = "0">선택하세요</option>`);
     $("#attIntTarget").empty();
     $("#attIntTarget").append(`<option value = "0">선택하세요</option>`);
 
     for (let character of this.#characters) {
-      $(".listDataBlock").append(this.showCharacters(character));
-      
+      if(character.id *1 === id*1) continue;
       $("#attStrTarget").append(`<option value = "${character.id}">${character.name}</option>`);
       $("#attIntTarget").append(`<option value = "${character.id}">${character.name}</option>`);
+    }
+  }
+
+  printListHtml() {
+    $(".listDataBlock").empty();
+    for (let character of this.#characters) {
+      $(".listDataBlock").append(this.showCharacters(character));
     }
   }
 
@@ -142,6 +147,8 @@ class gameCharacter {
     $("#int").val(character.int);
     $("#dex").val(character.dex);
     $("#lux").val(character.lux);
+
+    this.printListAttack(character.id);
   }
   
   printItem(id) { //클릭된 캐릭터 배열에서 찾기
@@ -170,7 +177,7 @@ class gameCharacter {
   }
 
   attackInt(){
-    if($("#attStrTarget").val()*1 === 0 || this.findCharacterIndex($("#id").val()) === -1) return;
+    if($("#attIntTarget").val()*1 === 0 || this.findCharacterIndex($("#id").val()) === -1) return;
     this.findCharacter($("#attIntTarget").val()).hp -= this.findCharacter($("#id").val()).int;
     this.findCharacter($("#id").val()).mp -= this.findCharacter($("#id").val()).int;
   }
@@ -178,24 +185,28 @@ class gameCharacter {
 
 $(() => {
   let character = new gameCharacter();
-  character.printHtml();
+  character.printListHtml();
+  character.printListAttack();
   $("#btnAdd").click(function (e) {
     e.preventDefault();
     character.insertGameCharacter();
-    character.printHtml();
+    character.printListHtml();
+    character.printListAttack();
     character.clearInput();
   });
 
   $("#btnUpt").click(function (e) {
     e.preventDefault();
     character.updateGameCharacter();
-    character.printHtml();
+    character.printListHtml();
+    character.printListAttack();
     character.clearInput();
   });
   $("#btnDel").click(function (e) {
     e.preventDefault();
     character.deleteGameCharacter();
-    character.printHtml();
+    character.printListHtml();
+    character.printListAttack();
     character.clearInput();
   });
 
@@ -205,11 +216,11 @@ $(() => {
   
   $(document).on(`click`, "#btnAttStr", function (e) {
     character.attackStr();
-    character.printHtml();
+    character.printListHtml();
   });
 
   $(document).on(`click`, "#btnAttInt", function (e) {
     character.attackInt();
-    character.printHtml();
+    character.printListHtml();
   });
 })
