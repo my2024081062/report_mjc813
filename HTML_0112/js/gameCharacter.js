@@ -1,5 +1,5 @@
 class gameCharacter {
-  static id = 1;
+  static id = 2;
   #characters = [
     {
       id: 1, name: "신사임걸", cls: "마법사", sx: "여자",
