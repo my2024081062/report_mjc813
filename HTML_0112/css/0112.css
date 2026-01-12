@@ -46,6 +46,19 @@
     width: 100%;
     height: 100%;
 }
+.btnAtt {
+    background-color: rgba(203, 15, 20, 0.5);
+    width: 100%;
+    height: 100%;
+}
+.inputAttack {
+    display: grid;
+    grid-template-columns: auto 146px;
+}
+.inputAttackItem {
+    display: grid;
+    grid-template-columns: 80px auto;
+}
 .listField {
     background-color: rgba(147, 112, 216, 0.2);
 }
