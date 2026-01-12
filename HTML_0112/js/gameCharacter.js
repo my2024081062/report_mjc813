@@ -37,10 +37,8 @@ class gameCharacter {
     //조건문 검사
 
     //아이디 검색해서 일치하는 배열의 객체를 수정함
-    let updateCharacter = this.createGameCharacter(1);
-    let findIndex = this.#characters.findIndex((character) => {
-      return character.id * 1 === $("#id").val() * 1;
-    });
+    let updateCharacter = this.createGameCharacter(`forUpdate`);
+    let findIndex = this.findCharacterIndex($("#id").val());
     if (findIndex === -1)
       return;
     else this.#characters = this.#characters.with(findIndex, updateCharacter);
@@ -50,9 +48,7 @@ class gameCharacter {
     //조건문 검사
 
     //아이디 검색해서 일치하는 배열의 객체를 삭제
-    let findIndex = this.#characters.findIndex((character) => {
-      return character.id * 1 === $("#id").val() * 1;
-    });
+    let findIndex = this.findCharacterIndex($("#id").val());
     if (findIndex === -1)
       return;
     else this.#characters.splice(findIndex, 1);
@@ -107,10 +103,13 @@ class gameCharacter {
   printHtml() {
     $(".listDataBlock").empty();
     $("#attStrTarget").empty();
+    $("#attStrTarget").append(`<option value = "0">선택하세요</option>`);
     $("#attIntTarget").empty();
+    $("#attIntTarget").append(`<option value = "0">선택하세요</option>`);
 
     for (let character of this.#characters) {
       $(".listDataBlock").append(this.showCharacters(character));
+      
       $("#attStrTarget").append(`<option value = "${character.id}">${character.name}</option>`);
       $("#attIntTarget").append(`<option value = "${character.id}">${character.name}</option>`);
     }
@@ -155,13 +154,25 @@ class gameCharacter {
 
   findCharacter(id){
     return this.#characters.find((character)=>{
-      return character.id *1 === id;
+      return character.id *1 === id *1;
+    });
+  }
+
+  findCharacterIndex(id){
+    return this.#characters.findIndex((character)=>{
+      return character.id *1 === id *1;
     });
   }
 
   attackStr(){
-    this.findCharacter($("#attStrTarget").val())
-    this.printHtml();
+    if($("#attStrTarget").val()*1 === 0 || this.findCharacterIndex($("#id").val()) === -1) return;
+    else this.findCharacter($("#attStrTarget").val()).hp -= this.findCharacter($("#id").val()).str;
+  }
+
+  attackInt(){
+    if($("#attStrTarget").val()*1 === 0 || this.findCharacterIndex($("#id").val()) === -1) return;
+    this.findCharacter($("#attIntTarget").val()).hp -= this.findCharacter($("#id").val()).int;
+    this.findCharacter($("#id").val()).mp -= this.findCharacter($("#id").val()).int;
   }
 }
 
@@ -194,5 +205,11 @@ $(() => {
   
   $(document).on(`click`, "#btnAttStr", function (e) {
     character.attackStr();
+    character.printHtml();
+  });
+
+  $(document).on(`click`, "#btnAttInt", function (e) {
+    character.attackInt();
+    character.printHtml();
   });
 })
