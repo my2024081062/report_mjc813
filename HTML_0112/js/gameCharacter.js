@@ -146,14 +146,14 @@ class gameCharacter {
     }
   }
 
-  printListAttack(id) {
+  printListAttack(selectedId) {
     $("#attStrTarget").empty();
     $("#attStrTarget").append(`<option value = "0">선택하세요</option>`);
     $("#attIntTarget").empty();
     $("#attIntTarget").append(`<option value = "0">선택하세요</option>`);
 
     for (let character of this.#characters) {
-      if (character.id * 1 === id * 1) continue;
+      if (character.id * 1 === selectedId * 1) continue;
       $("#attStrTarget").append(`<option value = "${character.id}">${character.name}</option>`);
       $("#attIntTarget").append(`<option value = "${character.id}">${character.name}</option>`);
     }
@@ -174,6 +174,14 @@ class gameCharacter {
     $("#lux").val(0);
   }
 
+  printItem(id) { //클릭된 캐릭터 배열에서 찾기
+    let findItem = this.#characters.find((character) => character.id * 1 === id * 1);
+    if (findItem === undefined)
+      return;
+    else
+      this.setInputData(findItem);
+  }
+
   setInputData(character) { //클릭된 상품으로 입력창 초기화
     $("#id").val(character.id);
     $("#name").val(character.name);
@@ -186,16 +194,7 @@ class gameCharacter {
     $("#int").val(character.int);
     $("#dex").val(character.dex);
     $("#lux").val(character.lux);
-
     this.printListAttack(character.id);
-  }
-
-  printItem(id) { //클릭된 캐릭터 배열에서 찾기
-    let findItem = this.#characters.find((character) => character.id * 1 === id * 1);
-    if (findItem === undefined)
-      return;
-    else
-      this.setInputData(findItem);
   }
 
   findCharacter(id) {
