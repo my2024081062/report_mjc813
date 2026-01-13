@@ -37,6 +37,21 @@ class gameCharacter {
       $("#name").focus();
       return true;
     }
+    const birthDate = $("#birthDate").val().split("-");
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const date = today.getDate();
+
+    if(birthDate[0]*1  >  year*1 || 
+      (birthDate[0]*1 === year*1 && birthDate[1]*1  >  month*1) ||
+      (birthDate[0]*1 === year*1 && birthDate[1]*1 === month*1 && birthDate[2]*1  >  date*1)
+    ){
+      alert(`오늘 날짜 이상으로 생일을 설정 할 수 없습니다.`);
+      return true;
+    }
+    $("#birthDate").val().split("-")[0]
     const statements = ["str", "int", "dex", "lux"];
     for (const statement of statements) {
       if ($(`#${statement}`).val() < 0 || $(`#${statement}`).val() > 200) {
@@ -143,7 +158,7 @@ class gameCharacter {
       $("#attIntTarget").append(`<option value = "${character.id}">${character.name}</option>`);
     }
   }
-  
+
   clearInput() { //완료후 입력창 클리어
     $("#id").val(0);
     $("#name").val("");
@@ -193,7 +208,7 @@ class gameCharacter {
       return character.id * 1 === id * 1;
     });
   }
-  checkTargetHp(targetId, attackId){
+  checkTargetHp(targetId, attackId) {
     if (this.findCharacter(targetId).hp <= 0) {
       let findIndex = this.findCharacterIndex(targetId);
       if (findIndex === -1)
@@ -209,16 +224,16 @@ class gameCharacter {
   attackStr() {
     const targetId = $("#attStrTarget").val() * 1;
     const attackId = $("#id").val() * 1;
-    if (this.findCharacter(targetId) === undefined || this.findCharacter(attackId) === undefined) 
+    if (this.findCharacter(targetId) === undefined || this.findCharacter(attackId) === undefined)
       return;
-    else 
+    else
       this.findCharacter(targetId).hp -= this.findCharacter(attackId).str;
     this.checkTargetHp(targetId, attackId);
   }
   attackInt() {
     const targetId = $("#attIntTarget").val() * 1;
     const attackId = $("#id").val() * 1;
-    if (this.findCharacter(targetId) === undefined || this.findCharacter(attackId) === undefined) 
+    if (this.findCharacter(targetId) === undefined || this.findCharacter(attackId) === undefined)
       return;
     else if (this.findCharacter(attackId).mp < this.findCharacter(attackId).int) {
       alert(`남은 mp가 int보다 부족하여 공격할 수 없습니다.`);
@@ -236,7 +251,7 @@ $(() => {
   let character = new gameCharacter();
   character.printListHtml();
   character.printListAttack();
-  
+
   $("#btnAdd").click(function (e) {
     e.preventDefault();
     character.insertGameCharacter();
