@@ -6,6 +6,24 @@ class gameCharacter {
       hp: 203, mp: 395,
       str: 50, int: 50, dex: 50, lux: 50,
       birthDate: "2010-01-01"
+    },
+    {
+      id: 2, name: "흑색전사", cls: "W", sx: "F",
+      hp: 203, mp: 395,
+      str: 50, int: 50, dex: 50, lux: 50,
+      birthDate: "2010-01-01"
+    },
+    {
+      id: 3, name: "도적고양이", cls: "T", sx: "F",
+      hp: 203, mp: 395,
+      str: 50, int: 50, dex: 50, lux: 50,
+      birthDate: "2010-01-01"
+    },
+    {
+      id: 4, name: "못난이궁수", cls: "A", sx: "F",
+      hp: 203, mp: 395,
+      str: 50, int: 50, dex: 50, lux: 50,
+      birthDate: "2010-01-01"
     }
   ];
 
@@ -245,12 +263,44 @@ class gameCharacter {
     this.checkTargetHp(targetId, attackId);
   }
 }
-
+let toggle = true;
+function fadeCharacterList(){
+  toggle 
+  ?
+  $(".listField").children("legend").hover(function(){
+    $(".listField").children("legend").empty();
+    $(".listField").children("legend").css("backgroundColor", "salmon");
+    $(".listField").children("legend").append("목록 숨기기");
+    $(".listField").children("legend").click(function(){
+      $(".listDataBlock").slideUp();
+      toggle = false
+    })
+  },function(){
+    $(".listField").children("legend").empty();
+    $(".listField").children("legend").css("backgroundColor", "white");
+    $(".listField").children("legend").append("캐릭터 목록");
+  })
+  : 
+  $(".listField").children("legend").hover(function(){
+    $(".listField").children("legend").empty();
+    $(".listField").children("legend").css("backgroundColor", "lightblue");
+    $(".listField").children("legend").append("목록 보이기");
+    $(".listField").children("legend").click(function(){
+      $(".listDataBlock").slideDown();
+      toggle = true;
+    })
+  },function(){
+    $(".listField").children("legend").empty();
+    $(".listField").children("legend").css("backgroundColor", "white");
+    $(".listField").children("legend").append("캐릭터 목록");
+  })
+  ;
+}
 $(() => {
   let character = new gameCharacter();
   character.printListHtml();
   character.printListAttack();
-
+  fadeCharacterList();
   $("#btnAdd").click(function (e) {
     e.preventDefault();
     character.insertGameCharacter();
