@@ -80,6 +80,10 @@ html {
     display: grid;
     grid-template-columns: 80px auto;
 }
+.listDataBlock {
+    overflow-y: auto;
+    max-height: 20vh;
+}
 .listField {
     background-color: rgba(147, 112, 216, 0.2);
 }
@@ -90,6 +94,7 @@ html {
 .listTitleRow {
     display: grid;
     grid-template-columns: auto 80px 40px 40px 40px 90px;
+    margin-right: 15px;
 }
 .listDataRow {
     display: grid;
